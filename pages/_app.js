@@ -1,7 +1,11 @@
 import Layout from '@/components/Layout/Layout';
+import axios from 'axios';
 import '@/styles/globals.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
+
+
+axios.defaults.baseURL = 'www.themealdb.com/api/json/v1/1';
 
 const queryClient = new QueryClient({
   defaultOptions: {

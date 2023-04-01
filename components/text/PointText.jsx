@@ -1,10 +1,13 @@
 import React from 'react';
-// import 
+import classes from './PointText.module.scss';
+import clsx from 'clsx';
+import Text from './Text';
 
-function PointText() {
+function PointText({className, children}) {
   return (
-    <div>
-      
+    <div className={clsx(classes.pointText, className)}>
+      <div className={classes.circle}></div>
+      <Text>{children}</Text>
     </div>
   )
 }
