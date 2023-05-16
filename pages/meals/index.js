@@ -23,8 +23,15 @@ const getMeals = async ({ queryKey }) => {
   return data?.meals || [];
 };
 
+const getQueriedMeals = async ({ queryKey }) => {
+  const { data } = await axios.get(`/search.php?s=${queryKey[1]}`);
+  return data?.meals || [];
+};
+
 function Meals() {
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [searchText, setSearchText] = useState("");
+  const [query, setQuery] = useState("");
 
   const {
     data: categories,
@@ -34,7 +41,14 @@ function Meals() {
 
   const { data, isLoading, isError } = useQuery(
     ["mealsByCategory", selectedCategory],
-    getMeals
+    getMeals,
+    { enabled: query === "" }
+  );
+
+  const { data: queriedData, isLoading: queryIsLoading } = useQuery(
+    ["mealsByQuery", query],
+    getQueriedMeals,
+    { enabled: query !== "" }
   );
 
   useEffect(() => {
@@ -43,9 +57,28 @@ function Meals() {
     }
   }, [categories]);
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (searchText) {
+        setQuery(searchText);
+        setSelectedCategory("");
+      } else {
+        setQuery("");
+        if (categories) {
+          setSelectedCategory(categories[0].strCategory);
+        }
+      }
+    }, 300);
+
+    return () => {
+      setQuery("");
+      clearTimeout(timeout);
+    };
+  }, [searchText, categories]);
+
   return (
     <div className={classes.meals__page}>
-      <SearchBar />
+      <SearchBar searchText={searchText} setSearchText={setSearchText} />
       <PointText className={classes.text}>
         search meals or select categories below
       </PointText>
@@ -55,6 +88,7 @@ function Meals() {
         categoriesIsError={categoriesIsError}
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
+        setQuery ={setQuery}
       ></Categories>
 
       {isLoading || categoriesIsLoading ? (
@@ -73,6 +107,12 @@ function Meals() {
           !isError &&
           data &&
           data.map((meal) => <SingleMealCard meal={meal} key={meal.idMeal} />)}
+
+        {!queryIsLoading &&
+          queriedData &&
+          queriedData.map((meal) => (
+            <SingleMealCard key={meal.idMeal} meal={meal} />
+          ))}
       </div>
     </div>
   );

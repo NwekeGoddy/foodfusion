@@ -9,7 +9,12 @@ export default function Categories({
   categoriesIsError,
   selectedCategory,
   setSelectedCategory,
+  setQuery,
 }) {
+  if (categoriesIsError) {
+    return "error";
+  }
+
   if (categoriesIsLoading) {
     return <BeatLoader loading={categoriesIsLoading} color="#fff" />;
   } else {
@@ -20,7 +25,10 @@ export default function Categories({
             key={item.idCategory}
             category={item}
             selectedCategory={selectedCategory}
-            onClickHandler={() => setSelectedCategory(item.strCategory)}
+            onClickHandler={() => {
+              setSelectedCategory(item.strCategory);
+              setQuery('');
+            }}
           />
         ))}
       </div>
