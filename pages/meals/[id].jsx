@@ -112,6 +112,10 @@ function SingleMealPage() {
                 You already saved the meal.
               </Text>
             )}
+
+            <div  className={classes.saveButton}>
+
+            </div>
             <Button
               variant="primary"
               className={classes.saveButton}

@@ -6,6 +6,7 @@ import Title from "@/components/text/Title";
 import Text from "@/components/text/Text";
 import { BeatLoader } from "react-spinners";
 import Link from "next/link";
+import PointText from "@/components/text/PointText";
 
 function SavedMeals() {
   const [savedMealsId, setSavedMealsId] = useState([]);
@@ -24,7 +25,7 @@ function SavedMeals() {
   const result = useQueries({ queries });
 
   return (
-    <div className={classes.page__wrapper}>
+    <div className={classes.pageWrapper}>
       <Title variant="primary" className={classes.pageTitle}>
         My Saved Meal List
       </Title>
@@ -43,6 +44,8 @@ function SavedMeals() {
                 className={classes.singleMeal}
               >
                 <Title variant="secondary">{data.strMeal}</Title>
+                <PointText>Categories: {data.strCategory}</PointText>
+                <PointText>Area: {data.strArea}</PointText>
               </Link>
             );
           })}
