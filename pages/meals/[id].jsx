@@ -7,6 +7,7 @@ import { BeatLoader } from "react-spinners";
 import { useRouter } from "next/router";
 import axios from "axios";
 import PointText from "@/components/text/PointText";
+import { useQuery } from "@tanstack/react-query";
 
 const getSingleMeal = async ({ queryKey }) => {
   const { data } = await axios.get(`/lookup.php?i=${queryKey[1]}`);
@@ -29,6 +30,9 @@ function SingleMealPage() {
     <BeatLoader color="#fff" />;
   }
 
+  if (data) {
+    console.log(data);
+  }
   return (
     <div className={classes.pageWrapper}>
       <div className={classes.topContainer}>
@@ -49,14 +53,12 @@ function SingleMealPage() {
             Area: {data.strArea}
           </PointText>
           <PointText className={classes.infoText}>
-            Tags: {data?.strTags?.split(',').join(', ')}
+            Tags: {data?.strTags?.split(",").join(", ")}
           </PointText>
         </div>
       </div>
 
-      <div className={classes.ingredientsTable}>
-
-      </div>
+      <div className={classes.ingredientsTable}></div>
     </div>
   );
 }
