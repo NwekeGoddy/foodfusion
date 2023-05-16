@@ -2,7 +2,7 @@
 	text-transform: capitalize;
 	font-size: clamp(1.4rem, 3vw, 1.6rem);
 	color: var(--text-color-light);
-    line-height: 2rem;
+    line-height: 2.5rem;
 	span {
 		color: var(--primary-color);
 	}
@@ -14,6 +14,6 @@
 .title__primary {
 	font-size: clamp(2rem, 5vw, 4rem);
 	font-family: 'Mirza', sans-serif;
-    // line-height: 0.9rem;
+    line-height: 2.5rem;
     margin-bottom: 20px;
 }

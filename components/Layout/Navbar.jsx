@@ -16,7 +16,7 @@ export default function Navbar() {
           <Link href="/meals">Meals</Link>
         </li>
         <li>
-          <Link href="/savedMeals">Saved Lists</Link>
+          <Link href="/meals/savedMeals">Saved List</Link>
         </li>
       </ul>
     </nav>

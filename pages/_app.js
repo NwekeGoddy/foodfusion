@@ -20,10 +20,8 @@ export default function App({ Component, pageProps }) {
       <Toaster
         position="bottom-right"
         toastOptions={{
-          toastOptions: {
-            styles: {
-              fontSize: "1.4rem",
-            },
+          styles: {
+            fontSize: "1.4rem",
           },
         }}
       />
